@@ -59,3 +59,32 @@ Most useful output
 ------------------
 
 
+.. csv-table:: Comparison
+	:header: chr, 5' breakpoint, 3' breakpoint, Level 1,Level 2, Stand, Reference TE ID, 5' soft-clipped reads, 3' soft-clipped reads, Presence reads, Abscence reads, Ambiguous reads,Genotype,Identifier TE
+	:widths: 15 10 30 30 30 30 30 30 30 30 30 30 30 30
+
+	2R,38145,\-,gate,ltr,\-,\-,\+,\-,1,0,0,1.0,te01
+	2R,38145,\-,rt1b,non-ltr,.,\-,\+,\-,1,0,0,1.0,te02
+	2R,21076732,21077084,ine-1,helitron,\-,FBti0061454,\+,\-,2,0,0,1.0,te352
+
+
+
+
+#. chromosome
+#. 5' breakpoint estimate ("-" if estimate not available)
+#. 3' breakpoint estimate ("-" if estimate not available)
+#. search level id (Usually TE family)
+#. cluster level id (Usually TE order or class)
+#. strand ("." if strand could not be detected)
+#. reference TE ID ("-" if novel insertion)
+#. 5' breakpoint is supported by soft-clipped reads (if TRUE "+" else "-")
+#. 3' breakpoint is supported by soft-clipped reads (if TRUE "+" else "-")
+#. read count for "presence reads"
+#. read count for "absence reads"
+#. read count for "ambiguous reads"
+#. genotype for every TE (allele frequency for pooled data, present/absent for haploid, present/absent/heterozygous for diploid) #Note: haploid/diploid caller is under construction, use "pooled" for presence/absence read counts
+#. numbered identifier for each TE in the population
+
+
+
+

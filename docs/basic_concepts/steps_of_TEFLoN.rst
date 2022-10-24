@@ -34,21 +34,23 @@ You should place your files as follows:
 	data_input/
 	├── library
 	│	├── sample_reference_hierarchy.txt [required]
-	│	├── REFERENCE_TE_ANNOTATION.bed
-	│	└── TE_LIBRARY.fasta
+	│	├── REFERENCE_TE_ANNOTATION.bed [required]
+	│	└── TE_LIBRARY.fasta [optional]
 	├── reference
-	│	└── REFERENCE_GENOME.fasta
+	│	└── REFERENCE_GENOME.fasta [required]
 	└── samples
 	    ├── bam
-	    │	└── SAMPLE_NAME.bam
+	    │	└── SAMPLE_NAME.bam 
 	    ├── read1
-	    │	└── SAMPLE_NAME_r1.fastq
+	    │	└── SAMPLE_NAME_r1.fastq 
 	    └── read2
-	        └── SAMPLE_NAME_r2.fastq
+	        └── SAMPLE_NAME_r2.fastq 
 
-In this step, TEFLoN2 uses the TE annotations to extract them from the reference, remove them and use them as TE sequences. 
+In this step, TEFLoN2 uses the TE annotations to extract them from the reference in order to use them as ET sequences. It removes them from the reference and keeps the information of their positions in the reference. 
 
-At the end, we obtain a multi fasta which contains the reference without TE sequences and TE sequences.
+
+
+Here is the structure of the output files obtained after the execution of Preparation annotation step.
 
 .. code-block:: none
 
@@ -70,9 +72,11 @@ At the end, we obtain a multi fasta which contains the reference without TE sequ
 		    ├── PREFIX.ref2pseudo.txt
 		    └── PREFIX.te.pseudo.bed
 
+The most useful output is PREFIX.mappingRef.fa composed of the reference sequence without TE and TE sequences.
 
 Preparation custom
 ^^^^^^^^^^^^^^^^^^
+
 If you do not use TEs annotation of refrence, it is required that you use an TEs library.
 
 You should place your files as follows:
@@ -81,7 +85,7 @@ You should place your files as follows:
 
 	data_input/
 	├── library
-	│	└── TE_LIBRARY.fasta
+	│	└── TE_LIBRARY.fasta 
 	├── reference
 	│	└── REFERENCE_GENOME.fasta
 	└── samples
@@ -95,7 +99,7 @@ You should place your files as follows:
 
 In this step, TEFLoN2 uses RepeatMasker_  which, together with the TE consensus library, masks the TE sequences of the reference and then removes them.
 
-At the end, we obtain a multi fasta which contains the reference without TE sequences and TE sequences.
+Here is the structure of the output files obtained after the execution of Preparation custom step.
 
 .. code-block:: none
 
@@ -126,9 +130,15 @@ At the end, we obtain a multi fasta which contains the reference without TE sequ
 		    └── PREFIX.bed
 
 
+The most useful output is PREFIX.mappingRef.fa composed of the reference sequence without TE and TE sequences.
 
 Mapping
 ^^^^^^^
+
+Mapping step maps the short paired-end reads (.fastq) on PREFIX.mappingRef.fa.
+
+
+Here is the structure of the output files obtained after the execution of Mapping step.
 
 .. code-block:: none
 
@@ -140,10 +150,23 @@ Mapping
 	└── sample_names.txt
 
 
+We obtain a `binary alignment map <https://support.illumina.com/help/BS_App_RNASeq_Alignment_OLH_1000000006112/Content/Source/Informatics/BAM-Format.htm>`_ (BAM) for each sample.
 
 Discover
 --------
 
+Discover step detects potential putative TE breakpoints in each sample. 
+
+To do this, it uses information from the alignment files (BAM): `flags and CIGAR <https://en.wikipedia.org/wiki/SAM_(file_format)>`_ of each read.
+
+3 situations are possible:
+
+#. Both readings of the pair map with the reference. There is no putative TE breakpoints.
+#. The two reads do not map. No information can be deduced.
+#. One of the two reads maps to the reference and the other to a consensus sequence of TEs. A putative TE breakpoints is at this loci, which may or may not be present in the reference.
+
+
+Here is the structure of the output files obtained after the execution of Discover step.
 
 .. code-block:: none
 
@@ -156,9 +179,22 @@ Discover
 		├── SAMPLE_NAME.all_positions_sorted.txt
 		└── SAMPLE_NAME.all_positions.txt
 
+We obtain all position of putative TE breakpoints (SAMPLE_NAME.all_positions_sorted.txt) in each sample.
 
 Collapse
 --------
+
+Collapse step filters putatve TE breakpoints at the individual and then at the population level.
+The user must define two thresholds: 
+
+#. An individual threshold that defines for each individual the number of reads that must support the insertion to retain it.
+#. A population threshold which defines the number of reads that must support the insertion in all individuals, to retain it. 
+
+It creates subsamples of the same depth of each sample. These subsamples will be used in Count step.
+
+
+Here is the structure of the output files obtained after the execution of Collapse step.
+
 
 .. code-block:: none
 
@@ -176,8 +212,16 @@ Collapse
 		└── union.txt
 
 
+The most useful output is union_sorted.collapsed.txt composed of all TE breakpoints of all sample also known as the catalog of putative TE breakpoints  
+
+
 Count
 -----
+
+Count step examine reads flanking the TE breakpoint and genotype them according to their support of presence/absence of TE for each sample.
+
+
+Here is the structure of the output files obtained after the execution of Count step.
 
 .. code-block:: none
 
@@ -191,6 +235,9 @@ Count
 Genotype
 --------
 
+Genotype step gather all the information and estimate the allelic frequency of each TE breakpoints for each sample.
+
+Here is the structure of the output files obtained after the execution of Genotype step.
 
 .. code-block:: none
 
