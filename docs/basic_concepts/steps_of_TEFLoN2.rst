@@ -1,14 +1,16 @@
-===============
-Steps of TEFLoN
-===============
-
+================
+Steps of TEFLoN2
+================
 
 .. _RepeatMasker: https://www.repeatmasker.org/
+
+Inputs
+------
 
 Required input data to TEFLoN2 are :
 
 * Reference genome (.fasta)
-* Short paired-end reads (.fastq) or/and binary alignment map (.bam)
+* Short paired-end reads (.fastq(.gz)) or/and binary alignment map (.bam)
 * TEs annotation of reference (.bed6) or/and TEs library (.fasta)
 
 
@@ -40,15 +42,15 @@ You should place your files as follows:
 	│	└── REFERENCE_GENOME.fasta [required]
 	└── samples
 	    ├── bam
-	    │	└── SAMPLE_NAME.bam 
-	    ├── read1
+	    │	└── SAMPLE_NAME.bam
+	    ├── reads
+	    │	└── SAMPLE_NAME.fastq 
+	    ├── reads1
 	    │	└── SAMPLE_NAME_r1.fastq 
-	    └── read2
+	    └── reads2
 	        └── SAMPLE_NAME_r2.fastq 
 
 In this step, TEFLoN2 uses the TE annotations to extract them from the reference in order to use them as ET sequences. It removes them from the reference and keeps the information of their positions in the reference. 
-
-
 
 Here is the structure of the output files obtained after the execution of Preparation annotation step.
 
@@ -91,9 +93,11 @@ You should place your files as follows:
 	└── samples
 	    ├── bam
 	    │	└── SAMPLE2_NAME.bam
-	    ├── read1
-	    │	└── SAMPLE_NAME_r1.fastq
-	    └── read2
+	    ├── reads
+	    │	└── SAMPLE_NAME.fastq
+	    ├── reads1
+	    │	└── SAMPLE_NAME_r1.fastq 
+	    └── reads2
 	        └── SAMPLE_NAME_r2.fastq
 
 
@@ -201,6 +205,7 @@ Here is the structure of the output files obtained after the execution of Collap
 	WORK_DIRECTORY/data_output_PREFIX/
 	├── 0-reference
 	├── 1-mapping
+	│	├── averageLength.all.txt
 	│	├── SAMPLE_NAME.sorted.subsmpl.bam
 	│	├── SAMPLE_NAME.sorted.subsmpl.bam.bai
 	│	├── SAMPLE_NAME.sorted.subsmpl.cov.txt
@@ -232,10 +237,10 @@ Here is the structure of the output files obtained after the execution of Count 
 		└── SAMPLE_NAME.counts.txt
 
 
-Genotype
---------
+Genotype (sample)
+-----------------
 
-Genotype step gather all the information and estimate the allelic frequency of each TE breakpoints for each sample.
+Genotype (sample) step gather all the information and estimate the allelic frequency of each TE breakpoints for each sample.
 
 Here is the structure of the output files obtained after the execution of Genotype step.
 
@@ -245,6 +250,33 @@ Here is the structure of the output files obtained after the execution of Genoty
 	├── 0-reference
 	├── 1-mapping
 	├── 3-countPos
-	│	└── SAMPLE_NAME.pseudoSpace.genotypes.txt
 	└── 4-genotypes
-		└── SAMPLE_NAME.genotypes.txt
+		└── samples
+			├── pseudoSpace
+			│	└── SAMPLE_NAME.pseudoSpace.genotypes.txt
+			├── SAMPLE_NAME.genotypes.txt
+			├── all_samples.genotypes.txt
+			└── all_samples.genotypes2.txt
+
+
+
+Genotype (population)
+---------------------
+
+If you use population file, Genotype (population) step gather all the information and estimate the population frequency of each TE breakpoints for each population.
+
+
+.. code-block:: none
+	
+	WORK_DIRECTORY/data_output_PREFIX/
+	├── 0-reference
+	├── 1-mapping
+	├── 3-countPos
+	└── 4-genotypes
+		├── samples
+		|	└── pseudoSpace
+		└── populations
+	 	    ├── NAME_POP.population.genotypes2.txt
+		    ├──	NAME_POP.population.genotypes.txt
+		    ├── all_frequency.population.genotypes2.txt
+		    └── all_frequency.population.genotypes.txt

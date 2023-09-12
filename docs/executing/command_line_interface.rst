@@ -16,3 +16,7 @@ If all went well, execute TEFLoN2 :
 
 	$ snakemake --configfile config.yaml -s Snakefile -p -j $MAX_JOBS
 
+
+To make TEFLoN2 work, you may need to configure your cluster.
+
+for more information on the launch, go to `SnakeMake documentation <https://snakemake.readthedocs.io/en/stable/>`_.

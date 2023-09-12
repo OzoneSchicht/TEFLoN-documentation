@@ -39,7 +39,7 @@ Getting started
    :hidden:
    :maxdepth: 1
 
-   basic_concepts/steps_of_TEFLoN
+   basic_concepts/steps_of_TEFLoN2
    basic_concepts/output_file_summary
 
 

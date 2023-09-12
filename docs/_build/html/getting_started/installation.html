@@ -43,10 +43,10 @@
               <p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#teflon2">TEFLoN2</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#installation-via-conda">Installation via Conda</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#installation-manually">Installation manually</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#teflon2">TEFLoN2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-singularityce">Using SingularityCE</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manually">Manually</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#python-3">Python 3</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#burrows-wheeler-alignment-tool-bwa">Burrows-Wheeler Alignment Tool (BWA)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#id1">SAMtools</a></li>
@@ -111,21 +111,32 @@ TEFLoN2 uses Python 3, BWA (Burrows-Wheeler Alignment Tool), Samtools, RepeatMas
 <span class="gp">$ </span>git clone https://github.com/asfistonlavie/TEFLoN2.git
 </pre></div>
 </div>
-</section>
 <section id="dependencies">
-<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h2>
+<h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.python.org">Python</a> ≥ 3</p></li>
 <li><p><a class="reference external" href="http://bio-bwa.sourceforge.net">BWA</a> ≥ 0.7.17</p></li>
 <li><p><a class="reference external" href="https://www.htslib.org">SAMtools</a> ≥ 1.15</p></li>
 <li><p><a class="reference external" href="https://www.repeatmasker.org/">RepeatMasker</a> ≥ 4.1.2</p></li>
 <li><p><a class="reference external" href="https://snakemake.readthedocs.io">Snakemake</a> ≥ 7.7.0</p></li>
+<li><p><a class="reference external" href="https://sylabs.io/docs/">SingularityCE</a> 3.11.0</p></li>
 </ul>
-<section id="installation-via-conda">
-<h3>Installation via Conda<a class="headerlink" href="#installation-via-conda" title="Permalink to this heading"></a></h3>
 </section>
-<section id="installation-manually">
-<h3>Installation manually<a class="headerlink" href="#installation-manually" title="Permalink to this heading"></a></h3>
+<section id="using-singularityce">
+<h3>Using SingularityCE<a class="headerlink" href="#using-singularityce" title="Permalink to this heading"></a></h3>
+<p>For install <a class="reference external" href="https://sylabs.io/docs/">SingularityCE</a>, follow installation instructions on <a class="reference external" href="https://docs.sylabs.io/guides/main/admin-guide/installation.html">SingularityCE site</a>.</p>
+<p>A Singularity container is available with all tools compiled in. The Singularity file provided in this repo and can be compiled as such:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo singularity build TEFLoN.simg Singularity
+</pre></div>
+</div>
+<p>if you can’t use sudo :</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">singularity build --fakeroot TEFLoN.simg Singularity</span>
+</pre></div>
+</div>
+</section>
+<section id="manually">
+<h3>Manually<a class="headerlink" href="#manually" title="Permalink to this heading"></a></h3>
+<p>For manual installation, it is best to go directly to the tool documentation.</p>
 <section id="python-3">
 <h4>Python 3<a class="headerlink" href="#python-3" title="Permalink to this heading"></a></h4>
 <p>To check the version of your python :</p>
@@ -150,7 +161,7 @@ TEFLoN2 uses Python 3, BWA (Burrows-Wheeler Alignment Tool), Samtools, RepeatMas
 <span class="go">sudo apt -y install bwa</span>
 </pre></div>
 </div>
-<p>Recheck bwa version and if there are any problems, go to the <a class="reference external" href="https://bio-bwa.sourceforge.net/">bwa site</a></p>
+<p>Recheck bwa version and if there are any problems, go to the <a class="reference external" href="https://bio-bwa.sourceforge.net/">bwa site</a>.</p>
 </section>
 <section id="id1">
 <h4>SAMtools<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
@@ -158,10 +169,11 @@ TEFLoN2 uses Python 3, BWA (Burrows-Wheeler Alignment Tool), Samtools, RepeatMas
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>samtools --version
 </pre></div>
 </div>
-<p>If samtools is not installed or SAMtools &lt; 1.15, follow installation instructions on <a class="reference external" href="http://www.htslib.org/">samtools site</a></p>
+<p>If samtools is not installed or SAMtools &lt; 1.15, follow installation instructions on <a class="reference external" href="http://www.htslib.org/">samtools site</a>.</p>
 </section>
 <section id="id2">
 <h4>RepeatMasker<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h4>
+<p>For install <a class="reference external" href="https://www.repeatmasker.org/">RepeatMasker</a>, follow installation instructions on <a class="reference external" href="http://www.repeatmasker.org/RepeatMasker/">RepeatMasker site</a>.</p>
 </section>
 <section id="id3">
 <h4>SnakeMake<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h4>
@@ -169,6 +181,7 @@ TEFLoN2 uses Python 3, BWA (Burrows-Wheeler Alignment Tool), Samtools, RepeatMas
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>snakemake --version
 </pre></div>
 </div>
+<p>If SnakeMake is not installed or version &lt; 7.7.0, follow installation instruction on <a class="reference external" href="https://snakemake.readthedocs.io/en/stable/getting_started/installation.html">SnakeMake site</a>.</p>
 </section>
 </section>
 </section>
